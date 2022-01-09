@@ -1,14 +1,20 @@
 <template>
   <div class="controls">
-    <label for="fluid-size">Fluid Size</label>
-    <input type="range" id="fluid-size" min="1" max="100" v-model="fluidSize" />
-    {{ fluidSize }}
-    <label for="min-size">Min Size</label>
-    <input type="range" id="min-size" min="1" max="100" v-model="minSize" />
-    {{ minSize }}
-    <label for="max-size">Max Size</label>
-    <input type="range" id="max-size" min="1" max="100" v-model="maxSize" />
-    {{ maxSize }}
+    <div>
+      <label for="fluid-size">Fluid Size</label>
+      <input type="range" id="fluid-size" min="1" max="20" step="0.1" v-model="fluidSize" />
+      {{ fluidSize }}vw
+    </div>
+    <div>
+      <label for="min-size">Min Size</label>
+      <input type="range" id="min-size" min="1" max="100" step="1" v-model="minSize" />
+      {{ minSize }}px
+    </div>
+    <div>
+      <label for="max-size">Max Size</label>
+      <input type="range" id="max-size" min="1" max="100" step="1" v-model="maxSize" />
+      {{ maxSize }}px
+    </div>
   </div>
 	<div class="preview" ref="preview">
     <p>Pitch upon the very middle of the plat where the town or line of houses is to be laid or run, facing the harbor of the great river, for the situation of my house; ... the distance of each house from the creek or harbor should be, in my judgment, a measured quarter of a mile; or, at least, two hundred paces, because of building hereafter streets down to the harbor.” Such were the instructions which William Penn, founder of Philadelphia, gave to his commissioners, William Crispin, John Bezar, and Nathaniel Allen, for the building of what is now known as Penn’s Cottage.</p>
@@ -23,18 +29,26 @@ export default {
   data() {
     return {
       fluidSize: 2,
-      minSize: 1.5,
-      maxSize: 2.5
+      minSize: 16,
+      maxSize: 40
+    }
+  },
+  computed: {
+    minSizePx() {
+      return this.minSize / 16
+    },
+    maxSizePx() {
+      return this.maxSize / 16
     }
   },
   watch: {
     fluidSize(newValue) {
       this.$refs.preview.style.setProperty('--fluid-size', newValue  + 'vw')
     },
-    minSize(newValue) {
+    minSizePx(newValue) {
       this.$refs.preview.style.setProperty('--min-size', newValue + 'rem')
     },
-    maxSize(newValue) {
+    maxSizePx(newValue) {
       this.$refs.preview.style.setProperty('--max-size', newValue + 'rem')
     },
   },
@@ -48,7 +62,7 @@ export default {
 .preview {
   --fluid-size: 3vw;
   --min-size: 1rem;
-  --max-size: 2rem;
+  --max-size: 2.5rem;
 	padding: 1em max(1.5rem, (50vw - 960px) / 2);
 	/* max-width: 85%; */
 	/* overflow: scroll; */

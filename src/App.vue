@@ -12,7 +12,16 @@ import TypePreview from './components/TypePreview.vue'
 @import './assets/css/normalize.css';
 
 body {
-  font-size: 16px;
+  font-family: sans-serif;
+  font-size: 16 * 1px;
+  color: rgb(25, 26, 27);
+  padding: 0;
+  margin: 0;
+  scroll-behavior: smooth;
+  /* font weight normalization */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 #app {

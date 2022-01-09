@@ -1,5 +1,9 @@
 <template>
   <div class="controls">
+    <div class="controls__item">
+      <label for="font-stack">Font</label>
+      <input type="text" id="font-stack" v-model="fontStack">
+    </div>
     <div>
       <label for="fluid-size">Fluid Size</label>
       <input type="range" id="fluid-size" min="1" max="20" step="0.1" v-model="fluidSize" />
@@ -33,7 +37,8 @@ export default {
     return {
       fluidSize: 2,
       minSize: 16,
-      maxSize: 40
+      maxSize: 40,
+      fontStack: 'sans-serif',
     }
   },
   computed: {
@@ -42,7 +47,14 @@ export default {
     },
     maxSizeRem() {
       return this.maxSize / 16
-    }
+    },
+    fontStackProcessed() {
+      if (this.fontStack.indexOf(' ') > -1) {
+        return '\'' + this.fontStack + '\''
+      } else {
+        return this.fontStack
+      }
+    },
   },
   watch: {
     fluidSize(newValue) {
@@ -54,6 +66,9 @@ export default {
     maxSizeRem(newValue) {
       this.$refs.preview.style.setProperty('--max-size', newValue + 'rem')
     },
+    fontStackProcessed(newValue) {
+      this.$refs.preview.style.setProperty('--font-family', newValue)
+    }
   },
 }
 </script>
@@ -66,6 +81,7 @@ export default {
   --fluid-size: 3vw;
   --min-size: 1rem;
   --max-size: 2.5rem;
+  --font-family: sans-serif;
 	padding: 1em max(2rem, (50vw - 960px) / 2);
 	/* max-width: 85%; */
 	/* overflow: scroll; */
@@ -73,6 +89,7 @@ export default {
   h1, p {
     text-align: left;
     line-height: 1.333;
+    font-family: var(--font-family);
     font-size: clamp(
       var(--min-size, 1rem),
       calc(1rem + var(--fluid-size, 3vw)),

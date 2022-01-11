@@ -241,15 +241,28 @@ pre {
 	color: white;
 	padding: 1em;
   text-align: center;
+  white-space: pre-wrap;
 }
-.controls,
-.code-wrap {
-	display: flex;
-	justify-content: space-around;
+.controls {
 	padding: 1em max(2rem, (50vw - 960px) / 2);
-  gap: 1em;
+  @media(min-width: 540px) {
+    display: flex;
+    justify-content: flex-start;
+    gap: 2em;
+    & > div {
+      flex: 0 0 calc(50% - 1em);
+    }
+  }
 }
 .code-wrap {
-  justify-content: space-between;
+	padding: 1em max(2rem, (50vw - 960px) / 2);
+  @media(min-width: 768px) {
+    display: flex;
+    justify-content: flex-start;
+    gap: 2em;
+    & > div {
+      flex: 0 0 calc(50% - 1em);
+    }
+  }
 }
 </style>

@@ -14,7 +14,8 @@ import TypePreview from './components/TypePreview.vue'
 body {
   font-family: sans-serif;
   font-size: 16 * 1px;
-  color: rgb(25, 26, 27);
+  /* color: rgb(25, 26, 27); */
+  color: #323a42;
   padding: 0;
   margin: 0;
   scroll-behavior: smooth;
@@ -22,14 +23,5 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-}
-
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

@@ -24,6 +24,8 @@
         :min-size=minParagraphSize
         @maxSizeChange="updateParagraphMaxSize"
         :max-size=maxParagraphSize
+        @lineHeightChange="updateParagraphLineHeight"
+        :line-height=paragraphLineHeight
       />
     </div>
   </div>
@@ -33,7 +35,7 @@
       <pre>font-size: clamp({{ minHeadlineSizeRem }}rem, calc(1rem + {{ fluidHeadlineSize }}vw), {{ maxHeadlineSizeRem }}rem);</pre>
     </div>
     <div class="code">
-      <h2>Paragraph</h2>
+      <h2>Paragraphs</h2>
       <pre>font-size: clamp({{ minParagraphSizeRem }}rem, calc(1rem + {{ fluidParagraphSize }}vw), {{ maxParagraphSizeRem }}rem);</pre>
     </div>
   </div>
@@ -81,6 +83,7 @@ export default {
 			maxParagraphSize: 40,
 			headlineFont: "sans-serif",
 			paragraphFont: "serif",
+      paragraphLineHeight: 1.5,
 		};
 	},
 	computed: {
@@ -154,6 +157,9 @@ export default {
 		paragraphFontStackProcessed(newValue) {
 			this.$refs.preview.style.setProperty("--font-paragraph-family", newValue);
 		},
+    paragraphLineHeight(newValue) {
+      this.$refs.preview.style.setProperty("--paragraph-line-height", newValue);
+    },
 	},
 	methods: {
 		updateHeadlineFont(value) {
@@ -180,6 +186,9 @@ export default {
 		updateParagraphMaxSize(value) {
 			this.maxParagraphSize = value;
 		},
+    updateParagraphLineHeight(value) {
+      this.paragraphLineHeight = value
+    },
 	},
 };
 </script>
@@ -197,6 +206,7 @@ export default {
 	--max-paragraph-size: 2.5rem;
 	--font-headline-family: sans-serif;
 	--font-paragraph-family: serif;
+  --paragraph-line-height: 1.5;
 	padding: 1em max(2rem, (50vw - 960px) / 2);
 	/* max-width: 85%; */
 	/* overflow: scroll; */
@@ -204,8 +214,8 @@ export default {
 	h1,
 	p {
 		text-align: left;
-		line-height: 1.333;
 		transition: font-size 200ms ease-in-out;
+		transition: line-height 200ms ease-in-out;
 	}
 	h1 {
 		font-family: var(--font-headline-family);
@@ -222,6 +232,7 @@ export default {
 			calc(1rem + var(--fluid-paragraph-size, 3vw)),
 			var(--max-paragraph-size, 2rem)
 		);
+    line-height: var(--paragraph-line-height);
 	}
 }
 pre {
@@ -237,5 +248,8 @@ pre {
 	justify-content: space-around;
 	padding: 1em max(2rem, (50vw - 960px) / 2);
   gap: 1em;
+}
+.code-wrap {
+  justify-content: space-between;
 }
 </style>

@@ -6,6 +6,13 @@ import TypePreview from './components/TypePreview.vue'
 
 <template>
   <TypePreview />
+
+  <section>
+    <h2>Resources</h2>
+    https://piccalil.li/tutorial/fluid-typography-with-css-clamp/
+    https://adrianroselli.com/2019/12/responsive-type-and-zoom.html
+
+  </section>
 </template>
 
 <style>

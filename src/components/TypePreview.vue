@@ -84,6 +84,7 @@ export default {
 			headlineFont: "sans-serif",
 			paragraphFont: "serif",
       paragraphLineHeight: 1.5,
+			testStore: this.$store.state.count,
 		};
 	},
 	computed: {

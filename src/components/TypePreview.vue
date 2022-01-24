@@ -3,21 +3,16 @@
     <div>
       <h1>Headline</h1>
       <Controls
-        @fontChange="updateHeadlineFont"
-        :font="headlineFont"
-        @fluidSizeChange="updateHeadlineFluid"
-        :fluid-size=fluidHeadlineSize
         @minSizeChange="updateHeadlineMinSize"
         :min-size=minHeadlineSize
         @maxSizeChange="updateHeadlineMaxSize"
         :max-size=maxHeadlineSize
+				:index="1"
       />
     </div>
     <div>
       <h1>Paragraphs</h1>
       <Controls
-        @fontChange="updateParagraphFont"
-        :font="paragraphFont"
         @fluidSizeChange="updateParagraphFluid"
         :fluid-size=fluidParagraphSize
         @minSizeChange="updateParagraphMinSize"
@@ -75,19 +70,20 @@ export default {
 	},
 	data() {
 		return {
-			fluidHeadlineSize: 4,
 			minHeadlineSize: 22,
 			maxHeadlineSize: 72,
 			fluidParagraphSize: 2,
 			minParagraphSize: 16,
 			maxParagraphSize: 40,
-			headlineFont: "sans-serif",
-			paragraphFont: "serif",
+			headlineFont: 'sans-serif',
+			paragraphFont: 'serif',
       paragraphLineHeight: 1.5,
-			testStore: this.$store.state.count,
 		};
 	},
 	computed: {
+		fluidHeadlineSize() {
+			return this.$store.state.headlineSettings[0].headlineSize
+		},
 		minHeadlineSizeRem() {
 			return this.minHeadlineSize / 16;
 		},
@@ -163,18 +159,6 @@ export default {
     },
 	},
 	methods: {
-		updateHeadlineFont(value) {
-			this.headlineFont = value;
-		},
-		updateParagraphFont(value) {
-			this.paragraphFont = value;
-		},
-		updateHeadlineFluid(value) {
-			this.fluidHeadlineSize = value;
-		},
-		updateParagraphFluid(value) {
-			this.fluidParagraphSize = value;
-		},
 		updateHeadlineMinSize(value) {
 			this.minHeadlineSize = value;
 		},

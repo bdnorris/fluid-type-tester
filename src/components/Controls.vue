@@ -12,7 +12,7 @@
 				min="1"
 				max="20"
 				step="0.1"
-				v-model="_fluidSize"
+				v-model="fluidSize"
 			/>
 			{{ fluidSize }}vw
 		</div>
@@ -56,57 +56,60 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
-	name: 'Controls',
+	name: "Controls",
 	data() {
-    return {
-      _fluidSize: this.fluidSize,
-      _minSize: this.minSize,
-      _maxSize: this.maxSize,
-      _font: this.font,
+		return {
+			_minSize: this.minSize,
+			_maxSize: this.maxSize,
+			_font: this.font,
 			_lineHeight: this.lineHeight,
-    }
-  },
+		};
+	},
 	props: {
-		fluidSize: {
-			type: [Number, String],
-			default: 2
-		},
 		minSize: {
 			type: [Number, String],
-			default: 16
+			default: 16,
 		},
 		maxSize: {
 			type: [Number, String],
-			default: 40
+			default: 40,
 		},
 		font: {
 			type: String,
-			default: 'sans-serif'
+			default: "sans-serif",
 		},
 		lineHeight: {
 			type: [Number, String],
-			default: ''
+			default: "",
+		},
+	},
+	computed: {
+		fluidSize: {
+			get() {
+				return this.$store.state.headlineSettings[0].headlineSize;
+			},
+			set(value) {
+				this.$store.commit("setHeadlineSize", value);
+			},
 		},
 	},
 	watch: {
-		_fluidSize(newValue) {
-			this.$emit('fluidSizeChange', newValue)
-		},
 		_minSize(newValue) {
-			this.$emit('minSizeChange', newValue)
+			this.$emit("minSizeChange", newValue);
 		},
 		_maxSize(newValue) {
-			this.$emit('maxSizeChange', newValue)
+			this.$emit("maxSizeChange", newValue);
 		},
 		_font(newValue) {
-			this.$emit('fontChange', newValue)
+			this.$emit("fontChange", newValue);
 		},
 		_lineHeight(newValue) {
-			this.$emit('lineHeightChange', newValue)
-		}
+			this.$emit("lineHeightChange", newValue);
+		},
 	},
-}
+};
 </script>
 
 <style lang="scss">
@@ -124,7 +127,6 @@ export default {
 	label {
 		flex: 1 0 10ch;
 		text-align: left;
-
 	}
 	input {
 		width: 100%;

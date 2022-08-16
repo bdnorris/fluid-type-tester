@@ -4,12 +4,18 @@ import { createStore } from 'vuex'
 export default createStore({
   state () {
     return {
-      count: 3
+      headlineSettings: [
+        {
+          headlineSize: 4
+        }
+      ]
     }
   },
   mutations: {
-    increment (state) {
-      state.count++
+    setHeadlineSize (state, payload) {
+      state.headlineSettings[0].headlineSize = payload
     }
+  },
+  actions: {
   }
 })

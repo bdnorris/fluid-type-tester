@@ -1,44 +1,50 @@
 <template>
-  <div class="controls">
-    <div>
-      <h1>Headline</h1>
-      <Controls
-        @fontChange="updateHeadlineFont"
-        :font="headlineFont"
-        @fluidSizeChange="updateHeadlineFluid"
-        :fluid-size=fluidHeadlineSize
-        @minSizeChange="updateHeadlineMinSize"
-        :min-size=minHeadlineSize
-        @maxSizeChange="updateHeadlineMaxSize"
-        :max-size=maxHeadlineSize
-      />
-    </div>
-    <div>
-      <h1>Paragraphs</h1>
-      <Controls
-        @fontChange="updateParagraphFont"
-        :font="paragraphFont"
-        @fluidSizeChange="updateParagraphFluid"
-        :fluid-size=fluidParagraphSize
-        @minSizeChange="updateParagraphMinSize"
-        :min-size=minParagraphSize
-        @maxSizeChange="updateParagraphMaxSize"
-        :max-size=maxParagraphSize
-        @lineHeightChange="updateParagraphLineHeight"
-        :line-height=paragraphLineHeight
-      />
-    </div>
-  </div>
-  <div class="code-wrap">
-    <div class="code">
-      <h2>Headline</h2>
-      <pre>font-size: clamp({{ minHeadlineSizeRem }}rem, calc(1rem + {{ fluidHeadlineSize }}vw), {{ maxHeadlineSizeRem }}rem);</pre>
-    </div>
-    <div class="code">
-      <h2>Paragraphs</h2>
-      <pre>font-size: clamp({{ minParagraphSizeRem }}rem, calc(1rem + {{ fluidParagraphSize }}vw), {{ maxParagraphSizeRem }}rem);</pre>
-    </div>
-  </div>
+	<div class="drawer" v-show="showDrawer">
+		<div class="controls">
+			<div>
+				<h1>Headline</h1>
+				<Controls
+					@minSizeChange="updateHeadlineMinSize"
+					:min-size=minHeadlineSize
+					@maxSizeChange="updateHeadlineMaxSize"
+					:max-size=maxHeadlineSize
+					:index="1"
+				/>
+			</div>
+			<div>
+				<h1>Paragraphs</h1>
+				<Controls
+					@fluidSizeChange="updateParagraphFluid"
+					:fluid-size=fluidParagraphSize
+					@minSizeChange="updateParagraphMinSize"
+					:min-size=minParagraphSize
+					@maxSizeChange="updateParagraphMaxSize"
+					:max-size=maxParagraphSize
+					@lineHeightChange="updateParagraphLineHeight"
+					:line-height=paragraphLineHeight
+				/>
+			</div>
+		</div>
+		<div class="code-wrap">
+			<div class="code">
+				<h2>Headline</h2>
+				<pre>font-size: clamp({{ minHeadlineSizeRem }}rem, calc(1rem + {{ fluidHeadlineSize }}vw), {{ maxHeadlineSizeRem }}rem);</pre>
+			</div>
+			<div class="code">
+				<h2>Paragraphs</h2>
+				<pre>font-size: clamp({{ minParagraphSizeRem }}rem, calc(1rem + {{ fluidParagraphSize }}vw), {{ maxParagraphSizeRem }}rem);</pre>
+			</div>
+		</div>
+	</div>
+	<button type="button" class="drawer-toggle" @click="toggleDrawer">
+		<span v-if="!showDrawer">
+			Show
+		</span>
+		<span v-else>
+			Hide
+		</span>
+		Controls
+	</button>
   <div class="preview" ref="preview">
     <h1>Heading Test</h1>
     <p>
@@ -85,6 +91,7 @@ export default {
 			paragraphFont: "serif",
       paragraphLineHeight: 1.5,
 			testStore: this.$store.state.count,
+			showDrawer: false,
 		};
 	},
 	computed: {
@@ -190,6 +197,9 @@ export default {
     updateParagraphLineHeight(value) {
       this.paragraphLineHeight = value
     },
+		toggleDrawer() {
+			this.showDrawer = !this.showDrawer;
+		}
 	},
 };
 </script>
